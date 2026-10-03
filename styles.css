@@ -2574,7 +2574,7 @@ ul { list-style: none; }
    AYUSH & ALTERNATIVE HEALING SECTIONS
 ============================================================ */
 .ayush-section {
-  padding: 96px 0;
+  padding: 56px 0 96px;
   background: linear-gradient(180deg, var(--white) 0%, #f4f9f5 100%);
 }
 
