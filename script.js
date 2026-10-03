@@ -16,6 +16,17 @@ document.addEventListener('DOMContentLoaded', function () {
       currentSlide = (currentSlide + 1) % heroSlides.length;
       heroSlides[currentSlide].classList.add('active');
     }, 4000);
+  /* ------------------------------------------------
+     0b. AYUSH Section Background Image Slider (4s Carousel)
+  ------------------------------------------------ */
+  const ayushSlides = document.querySelectorAll('.ayush-slide');
+  if (ayushSlides.length > 0) {
+    let currentAyushSlide = 0;
+    setInterval(() => {
+      ayushSlides[currentAyushSlide].classList.remove('active');
+      currentAyushSlide = (currentAyushSlide + 1) % ayushSlides.length;
+      ayushSlides[currentAyushSlide].classList.add('active');
+    }, 4000);
   }
 
   /* ------------------------------------------------
