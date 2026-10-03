@@ -19,19 +19,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ------------------------------------------------
-     0b. AYUSH Section Background Image Slider (4s Carousel)
-  ------------------------------------------------ */
-  const ayushSlides = document.querySelectorAll('.ayush-slide');
-  if (ayushSlides.length > 0) {
-    let currentAyushSlide = 0;
-    setInterval(() => {
-      ayushSlides[currentAyushSlide].classList.remove('active');
-      currentAyushSlide = (currentAyushSlide + 1) % ayushSlides.length;
-      ayushSlides[currentAyushSlide].classList.add('active');
-    }, 4000);
-  }
-
-  /* ------------------------------------------------
      1. Sticky Header – add shadow on scroll
   ------------------------------------------------ */
   const header = document.getElementById('site-header');
