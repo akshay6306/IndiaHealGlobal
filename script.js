@@ -19,19 +19,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ------------------------------------------------
-     0b. Stats Section Background Image Slider (4s Carousel)
-  ------------------------------------------------ */
-  const statsSlides = document.querySelectorAll('.stats-slide');
-  if (statsSlides.length > 0) {
-    let currentStatsSlide = 0;
-    setInterval(() => {
-      statsSlides[currentStatsSlide].classList.remove('active');
-      currentStatsSlide = (currentStatsSlide + 1) % statsSlides.length;
-      statsSlides[currentStatsSlide].classList.add('active');
-    }, 4000);
-  }
-
-  /* ------------------------------------------------
      1. Sticky Header – add shadow on scroll
   ------------------------------------------------ */
   const header = document.getElementById('site-header');

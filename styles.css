@@ -1824,68 +1824,8 @@ ul { list-style: none; }
    STATS / MARKET DATA SECTION
 ============================================================ */
 .stats-section {
-  position: relative;
   padding: 96px 0;
-  overflow: hidden;
-  color: var(--white);
-}
-
-.stats-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
-
-.stats-slider {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.stats-slide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  opacity: 0;
-  transition: opacity 1.2s ease-in-out, transform 6s ease-out;
-  transform: scale(1.05);
-}
-
-.stats-slide.active {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.stats-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(180deg, rgba(8, 30, 55, 0.88) 0%, rgba(10, 45, 75, 0.90) 100%);
-  z-index: 2;
-}
-
-.stats-content {
-  position: relative;
-  z-index: 3;
-}
-
-.stats-section .section-header h2 {
-  color: var(--white);
-}
-
-.stats-section .section-header p {
-  color: rgba(255, 255, 255, 0.9);
+  background: var(--white);
 }
 
 .data-block {
