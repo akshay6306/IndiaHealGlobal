@@ -2844,44 +2844,100 @@ ul { list-style: none; }
 }
 
 /* ============================================================
-   VISA EXTENSION BANNER
+   OFFICIAL GOVERNMENT VISA BANNERS (APPLY & EXTEND)
 ============================================================ */
-.visa-ext-banner {
-  background: linear-gradient(135deg, #fff3cd, #ffe8a1);
-  border-left: 5px solid #ffc107;
-  border-radius: var(--radius);
-  padding: 24px 32px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.visa-banners-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
   margin-bottom: 40px;
-  box-shadow: var(--shadow-sm);
 }
 
-.ve-content h3 {
+@media (max-width: 992px) {
+  .visa-banners-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.visa-ext-banner {
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.visa-ext-banner:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.visa-ext-banner.apply-banner {
+  background: linear-gradient(135deg, #e8f4fd, #d4ebfc);
+  border-left: 5px solid var(--primary);
+}
+
+.visa-ext-banner.extend-banner {
+  background: linear-gradient(135deg, #fff3cd, #ffe8a1);
+  border-left: 5px solid #ffc107;
+}
+
+.visa-ext-banner.apply-banner .ve-content h3 {
+  color: var(--primary-dark);
   font-size: 1.15rem;
   font-weight: 700;
-  color: #856404;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
-.ve-content p {
+.visa-ext-banner.apply-banner .ve-content p {
+  color: #1e3a8a;
   font-size: 0.85rem;
-  color: #664d03;
   margin: 0;
+}
+
+.visa-ext-banner.extend-banner .ve-content h3 {
+  color: #856404;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.visa-ext-banner.extend-banner .ve-content p {
+  color: #664d03;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.btn-apply-action {
+  background: var(--primary-dark) !important;
+  color: white !important;
+}
+
+.btn-apply-action:hover {
+  background: var(--primary) !important;
+  box-shadow: 0 4px 12px rgba(10,110,189,0.3);
 }
 
 .btn-ext-action {
   background: #856404;
   color: white;
   white-space: nowrap;
-  padding: 12px 24px;
-  font-size: 0.9rem;
+  padding: 12px 20px;
+  font-size: 0.88rem;
   font-weight: 700;
   border-radius: var(--radius-sm);
   text-decoration: none;
   transition: var(--transition);
+  text-align: center;
+}
+
+.btn-ext-action:hover {
+  background: #664d03;
+  color: white;
+  transform: translateY(-1px);
 }
 
 
