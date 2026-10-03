@@ -2510,7 +2510,7 @@ ul { list-style: none; }
   display: flex;
   gap: 16px; /* Small space between images */
   width: max-content;
-  animation: smoothTrainScroll 65s linear infinite;
+  animation: smoothTrainScroll 85s linear infinite;
   will-change: transform;
 }
 
