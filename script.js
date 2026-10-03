@@ -6,6 +6,19 @@
 document.addEventListener('DOMContentLoaded', function () {
 
   /* ------------------------------------------------
+     0. Hero Background Image Slider (4s Carousel)
+  ------------------------------------------------ */
+  const heroSlides = document.querySelectorAll('.hero-slide');
+  if (heroSlides.length > 0) {
+    let currentSlide = 0;
+    setInterval(() => {
+      heroSlides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % heroSlides.length;
+      heroSlides[currentSlide].classList.add('active');
+    }, 4000);
+  }
+
+  /* ------------------------------------------------
      1. Sticky Header – add shadow on scroll
   ------------------------------------------------ */
   const header = document.getElementById('site-header');
@@ -349,7 +362,121 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }, { threshold: 0.5 });
 
-  const heroStats = document.querySelector('.hero-stats');
-  if (heroStats) statsObserver.observe(heroStats);
+
+  /* ------------------------------------------------
+     13. AI Helper Agent Interactivity
+  ------------------------------------------------ */
+  const aiToggle    = document.getElementById('ai-agent-toggle');
+  const aiWindow    = document.getElementById('ai-chat-window');
+  const aiClose     = document.getElementById('ai-close-btn');
+  const aiForm      = document.getElementById('ai-chat-form');
+  const aiInput     = document.getElementById('ai-chat-input');
+  const aiMessages  = document.getElementById('ai-chat-messages');
+
+  if (aiToggle && aiWindow && aiClose && aiForm) {
+    aiToggle.addEventListener('click', () => {
+      aiWindow.classList.toggle('active');
+      if (aiWindow.classList.contains('active')) {
+        aiInput.focus();
+      }
+    });
+
+    aiClose.addEventListener('click', () => {
+      aiWindow.classList.remove('active');
+    });
+
+    // Quick prompt buttons
+    document.querySelectorAll('.qp-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const queryKey = btn.dataset.query;
+        let queryText = btn.textContent;
+        handleAiQuery(queryKey, queryText);
+      });
+    });
+
+    aiForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = aiInput.value.trim();
+      if (!text) return;
+      aiInput.value = '';
+      handleUserTextQuery(text);
+    });
+  }
+
+  function appendAiMessage(sender, textHTML) {
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `ai-msg ${sender}`;
+    msgDiv.innerHTML = textHTML;
+    aiMessages.appendChild(msgDiv);
+    aiMessages.scrollTop = aiMessages.scrollHeight;
+  }
+
+  function handleAiQuery(key, userText) {
+    appendAiMessage('user', userText);
+
+    let reply = '';
+    if (key === 'packages') {
+      reply = `💰 <strong>Popular Treatment Packages:</strong><br/>
+      • <strong>Cardiac Bypass (CABG):</strong> From $5,500 (Save 94%)<br/>
+      • <strong>Robotic Knee Replacement:</strong> From $4,500 (Save 90%)<br/>
+      • <strong>IVF with ICSI:</strong> From $3,500 (Save 77%)<br/>
+      • <strong>Liver Transplant:</strong> From $50,000 (Save 90%)<br/>
+      • <strong>Proton Beam Therapy:</strong> From $15,000<br/>
+      <a href="#packages" onclick="document.getElementById('ai-chat-window').classList.remove('active')">👉 Click here to view all 8 Packages</a>`;
+    } else if (key === 'hospitals') {
+      reply = `🏥 <strong>Top Centers of Excellence:</strong><br/>
+      • <strong>Medanta Gurugram:</strong> Cardiac &amp; 1,500+ Liver Transplants<br/>
+      • <strong>Fortis Escorts Delhi:</strong> Cardiac pioneer<br/>
+      • <strong>Asian Heart Mumbai:</strong> 99%+ Bypass success rate<br/>
+      • <strong>Tata Memorial Mumbai:</strong> Asia's largest Cancer Center<br/>
+      • <strong>Apollo Proton Chennai:</strong> 1st Proton Therapy center in South Asia<br/>
+      <a href="#hospitals" onclick="document.getElementById('ai-chat-window').classList.remove('active')">👉 View all 10 Accredited Hospitals</a>`;
+    } else if (key === 'visa') {
+      reply = `🛂 <strong>Medical Visa &amp; e-FRRO Extension:</strong><br/>
+      India offers 1-year e-Medical Visas (e-MV) for 160+ countries.<br/>
+      If you need an extension in India, apply 15–30 days prior on the official e-FRRO portal.<br/>
+      <a href="https://indianfrro.gov.in" target="_blank" style="font-weight:bold;color:#0a6ebd">👉 Extend Visa on official e-FRRO portal</a>`;
+    } else if (key === 'ayush') {
+      reply = `🌿 <strong>AYUSH &amp; Alternative Healing:</strong><br/>
+      • Ayurveda &amp; Panchakarma<br/>
+      • Sowa-Rigpa (Tibetan Medicine)<br/>
+      • Marma Therapy &amp; Siddha<br/>
+      • World-Class Resorts: Somatheeram, Kalari Kovilakom, Six Senses Vana, SwaSwara, Ashiyana Goa (with nearby patient hostels).<br/>
+      <a href="#ayush" onclick="document.getElementById('ai-chat-window').classList.remove('active')">👉 Explore AYUSH Centers</a>`;
+    } else if (key === 'solitude') {
+      reply = `🏔️ <strong>Solitude &amp; Recuperation Retreats:</strong><br/>
+      • Tirthan Valley (Himachal) – Forest Bathing<br/>
+      • Munsyari (Uttarakhand, 7,200 ft) – Mountain Peace<br/>
+      • Galgibaga Beach (Goa 4.7★) – Turtle Nesting Silence<br/>
+      • Thottada Beach (Kerala 4.6★) – Backwaters<br/>
+      <a href="#solitude" onclick="document.getElementById('ai-chat-window').classList.remove('active')">👉 View Quiet Retreats</a>`;
+    }
+
+    setTimeout(() => appendAiMessage('bot', reply), 400);
+  }
+
+  function handleUserTextQuery(query) {
+    appendAiMessage('user', query);
+    const q = query.toLowerCase();
+
+    let reply = `I'd be happy to help you with that! 😊<br/>`;
+
+    if (q.includes('visa') || q.includes('extend') || q.includes('frro')) {
+      reply += `For <strong>Medical Visa extensions</strong>, apply 15–30 days before expiration at <a href="https://indianfrro.gov.in" target="_blank">indianfrro.gov.in</a>.<br/>We also issue free hospital invitation letters!`;
+    } else if (q.includes('cost') || q.includes('price') || q.includes('bypass') || q.includes('knee') || q.includes('ivf') || q.includes('transplant')) {
+      reply += `Treatments in India save 65%–95% vs US/UK costs.<br/>• CABG Bypass: $5,500<br/>• Knee Replacement: $4,500<br/>• IVF: $3,500<br/>• Liver Transplant: $50,000.<br/><a href="#packages">Check full pricing grid →</a>`;
+    } else if (q.includes('hospital') || q.includes('doctor') || q.includes('medanta') || q.includes('apollo') || q.includes('tata')) {
+      reply += `India has 1.3M+ qualified doctors and top JCI/NABH hospitals like Medanta, Fortis, Tata Memorial, Apollo, and Max.<br/><a href="#hospitals">Explore Directory →</a>`;
+    } else if (q.includes('ayurveda') || q.includes('ayush') || q.includes('panchakarma') || q.includes('hostel')) {
+      reply += `Explore Panchakarma, Marma therapy, and top resorts (Somatheeram, Kalari Kovilakom, SwaSwara) with nearby patient hostels.<br/><a href="#ayush">View AYUSH Section →</a>`;
+    } else if (q.includes('contact') || q.includes('whatsapp') || q.includes('phone') || q.includes('number')) {
+      reply += `📞 24/7 International Helpline &amp; WhatsApp: <strong>+91 99356 05883</strong>.<br/><a href="https://wa.me/919935605883" target="_blank">Chat directly on WhatsApp →</a>`;
+    } else {
+      reply += `You can get a free estimate and treatment plan by filling our contact form or chatting directly with our team on WhatsApp.<br/>📞 Helpline: <strong>+91 99356 05883</strong><br/><a href="#contact">Fill Free Enquiry Form →</a>`;
+    }
+
+    setTimeout(() => appendAiMessage('bot', reply), 400);
+  }
 
 });
+
